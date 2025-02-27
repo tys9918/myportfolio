@@ -53,6 +53,10 @@
             margin-bottom: 20px;
         }
 
+        .profile p{
+            font-size: 1rem;
+        }
+
         .profile-pic {
             border-radius: 50%;
             width: 200px;
@@ -74,6 +78,7 @@
             color: #333; /* Text color */
             position: relative; /* Position relative to enable ::after */
             transition: color 0.3s ease; /* Optional: Smooth text color change */
+            font-size: 1.2rem;
         }
 
         .navigation a:active{
@@ -95,6 +100,7 @@
 
         .navigation a:hover {
             color: #555; /* Change text color on hover */
+            font-weight: bold;
         }
 
         a:hover::after {
@@ -109,8 +115,8 @@
         /* Main Content Section */
         .main-content {
             margin-left: 30%; /* Push the content to the right of the fixed sidebar */
-            width: 70%;
-            padding: 50px;
+            width: 80%;
+            padding: 30px;
             display: flex;
             flex-direction: column;
             background-color: rgb(235, 235, 235);
@@ -131,11 +137,21 @@
 
         .landing-banner {
             max-width: 100%;
-            margin-top: 30px;
-            height: 100%;
+            margin: 30px 0;
+            height: 150%;
+            padding: 50% auto;      
             display: flex;              /* Enable Flexbox */
             flex-direction: column;     /* Stack items vertically */
             justify-content: center;    /* Center items vertically */
+            background-image: url(john-img/main-bg.png);
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        @media only screen and (max-width: 428px){
+            .landing-banner{
+                background-image: url(john-img/main-bg-mobile.png);
+            }
         }
 
         .landing-banner h1 {
@@ -144,12 +160,13 @@
             align-items: center;
             align-items: flex;
             line-height: 2rem ;
+            color: #7a7963;
         }
 
         .landing-banner p{
             font-size: 1.2rem;
             padding: 20px 0;
-            color: rgb(117, 117, 117)
+            color:#403f31
         }
 
         .landing-banner .resume-cta {
@@ -162,8 +179,9 @@
         .resume-cta {
             display: inline-block; /* Make sure the element behaves like a block for hover */
             padding: 20px 20px; /* Add some padding */
-            background-color: #333; /* Background color */
-            color: white; /* Text color */
+            /* background-color: #333; */
+            border: 1px solid #7a7963;
+            color: #7a7963; /* Text color */
             border-radius: 5px; /* Rounded corners */
             text-align: center; /* Center the text */
             cursor: pointer; /* Pointer cursor on hover */
@@ -171,10 +189,11 @@
             transform-origin: center; /* Ensure scaling happens from the center */
             width: 200px;
             justify-content: center;
+            margin-top: 50px;
         }
 
         .resume-cta a{
-            color: white;
+            color: #7a7963;
             text-decoration: none;
         }
 
@@ -192,19 +211,19 @@
             flex-direction: column;     /* Stack items vertically */
             justify-content: center;    /* Center items vertically */
             height: 100%;
-            overflow: hidden;
         }
 
         .about-me{
             font-size: 1rem;
             line-height: 2rem;
             color: #8a8888;
+            padding: 30px 0;
         }
         .about-me a{
             color: #5693e2;
         }
         .about-me span{
-            color: #5693e2;
+            color: #7a7963;
             text-decoration: underline;
             font-weight: bold;
         }
@@ -215,8 +234,13 @@
             /* grid-template-rows: repeat(2, 1fr);   */
             gap: 10px;                  /* Add space between the grid items */
             width: 100%;                /* Ensure it takes the full width */
-            margin: 0 auto;             /* Center the grid container */
-            padding: 20px 0;
+            padding: 30px 0;
+        }
+
+        @media only screen and (max-width: 768px){
+            .about-grid{
+                grid-template-columns: repeat(2,1fr);
+            }
         }
 
         .icons-container {
@@ -250,7 +274,8 @@
             flex-direction: column;     /* Stack items vertically */
             justify-content: center;    /* Center items vertically */
             height: 100%;
-            overflow: hidden;
+            overflow: visible;
+            padding: 30px 0;
         }
         
         .myskill{
@@ -278,10 +303,11 @@
 
         .skills_bar .bar .info {
             margin-bottom: 5px;
+            padding: 30px 0;
         }
 
         .skills_bar .bar .info span {
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 500;
         }
 
@@ -308,7 +334,7 @@
         .progress_line span {
             height: 100%;
             width: 0;
-            background: #8834db;
+            background: #7a7963;
             position: absolute;
             border-radius: 10px;
             animation: animate 1.5s cubic-bezier(0.6, 0, 0.4, 1) forwards;
@@ -367,6 +393,18 @@
             width: 100%;                /* Ensure it takes the full width */
         }
 
+        @media only screen and (max-width: 768px){
+            .skills-grid{
+                grid-template-columns: repeat(2,1fr);
+            }
+        }
+
+        @media only screen and (max-width: 428px){
+            .skills_bar .bar .info span{
+                font-size: 0.9rem;
+            }
+        }
+
         /* Keyframe Animation */
         @keyframes scaleXAnimate {
             100% {
@@ -386,7 +424,6 @@
         /* Accordion Container */
         .mystudies {
             width: 100%;
-            max-width: 800px;
             margin: 20px auto;
         }
         
@@ -405,13 +442,12 @@
             /* border-radius: 8px; */
             outline: none;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 1.1rem;
             font-weight: 500;
             color: #333;
             transition: background-color 0.3s ease;
             font-family: "Quicksand", Arial, sans-serif;
             font-weight: 400;
-            text-transform: uppercase;
             position: relative;
         }
         
@@ -465,8 +501,8 @@
         }
 
         .my-experience{
-            overflow: hidden;
-            height:250%;
+            overflow: visible;
+            padding: 30px 0;
         }
 
         /* Import Google Font */
@@ -488,7 +524,7 @@
         }
 
         .timeline-container {
-            max-width: 800px;
+            max-width: 100%;
             margin: 50px auto;
         }
 
@@ -530,7 +566,8 @@
             border-radius: 50%;
             text-align: center;
             font-size: 2rem;
-            background: var(--secondary);
+            color: #fff;
+            background: #7a7963;
         }
 
         .timeline-icon i {
@@ -567,25 +604,31 @@
         }
 
         .timeline-title {
-            margin-bottom: 1.4rem;
+            margin-bottom: 2rem;
         }
 
         .badge {
             padding: 4px 0px;
             border-radius: 3px;
-            font-size: 18px;
+            font-size: 1.2rem;
             font-weight: 300;
         }
 
-        .timeline-subtitle {
+        .timeline-subtitle{
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .timeline-year{
+            font-size: 1rem;
             font-weight: 300;
             font-style: italic;
             opacity: 0.4;
             margin-top: 16px;
-            font-size: 11px;
         }
+
         .timeline-responsible{
-            font-size: 12px;
+            font-size: 0.95rem;
             font-weight: 200;
         }
 
@@ -597,7 +640,7 @@
 
 
         .wrapper {
-            max-width: 900px;
+            width: 100%;
             margin: auto;
             font-family: "Quicksand", Arial, sans-serif;
             line-height: 2em;
@@ -626,7 +669,6 @@
             padding: 10px 10px;
             color: #aaa;
             cursor: pointer;
-            font-weight: 700;
             transition: all ease 0.5s;
             border-bottom: solid 3px rgba(255, 255, 255, 0.0);
         }
@@ -667,6 +709,9 @@
 
         .content-wrapper {
             padding-top: 30px;
+            justify-content: center;
+            display: flex;
+            width: 100%;
         }
 
         .tab-content {
@@ -678,7 +723,6 @@
             opacity: 0;
             transform: translateY(15px);
             animation: fadeIn 0.5s ease 1 forwards;
-            max-width: 800px;
         }
 
         .tab-content.active {
@@ -702,16 +746,13 @@
         .html-grid img {
             border-radius: 8px;
             box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
-            max-width: 300px;
+            max-width: 100%;
         }
 
         @media only screen and (max-width: 768px) {
             .html-grid {
             grid-template-columns: repeat(2, 1fr);
             }
-            .html-grid img {
-            max-width: 200px;
-        }
         }
 
         @media only screen and (max-width: 428px) {
@@ -720,9 +761,6 @@
             column-gap: 5px;
             row-gap: 5px;
             }
-            .html-grid img {
-            max-width: 180px;
-        }
         } 
 
         .contact{
@@ -739,7 +777,7 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 800px;
+            width: 100%;
             gap: 20px;  
         }
 
@@ -862,97 +900,104 @@
                     </div>
                 </div>
                 <section class="about-content" id="about">
-                    <div data-aos="fade-right" data-aos-easing="linear" data-aos-duration="1000">
-                        <p>About Me</p><br>
-                        <h2>Who Am I?</h2>
+                    <div>
+                        <div style="overflow: hidden;">
+                            <p data-aos="fade-right" data-aos-easing="linear">About Me</p><br>
+                            <h2 data-aos="fade-right" data-aos-easing="linear">Who Am I?</h2>
 
-                        <p class="about-me">
-                            Hi I'm <b><a href="https://my.linkedin.com/in/tan-y-s">John</a></b>, 
-                            Skilled in crafting visually appealing, user-friendly websites with a strong focus on front-end
-                            development using <span>HTML, CSS, and JavaScript.</span>
-                            With a <span>solid foundation in UI/UX design</span> and a proven track record of delivering responsive, intuitive,
-                            and engaging web experiences, I bring a blend of creativity and technical expertise to every project.
-                            My experience includes designing and developing websites that prioritize user-centric design
-                            principles, seamless functionality, and clean, maintainable code. I thrive both as an independent
-                            contributor and as a collaborative team member, and I am passionate about creating exceptional
-                            digital experiences that align with business goals and user needs
-                        </p>
-
+                            <p class="about-me" data-aos="fade-right" data-aos-delay="250s">
+                                Hi I'm <b><a href="https://my.linkedin.com/in/tan-y-s" target="_blank">John</a></b>, 
+                                Skilled in crafting visually appealing, user-friendly websites with a strong focus on front-end
+                                development using <span>HTML, CSS, and JavaScript.</span>
+                                With a <span>solid foundation in UI/UX design</span> and a proven track record of delivering responsive, intuitive,
+                                and engaging web experiences, I bring a blend of creativity and technical expertise to every project.
+                                My experience includes designing and developing websites that prioritize user-centric design
+                                principles, seamless functionality, and clean, maintainable code. I thrive both as an independent
+                                contributor and as a collaborative team member, and I am passionate about creating exceptional
+                                digital experiences that align with business goals and user needs
+                            </p>
+                        </div>
                         <div class="about-grid">
                             <div class="icons-container" style="border-bottom: 3px solid #2c98f0;" data-aos="fade-up">
                                 <i class="fas fa-lightbulb" style="color: #2c98f0;"></i> <br>
-								<h3>Graphic Design</h3>
+                                <h3>Graphic Design</h3>
                             </div>
                             <div class="icons-container" style="border-bottom: 3px solid #ec5453;" data-aos="fade-up" data-aos-delay="250">
                                 <i class="fas fa-globe" style="color: #ec5453;"></i> <br>
-								<h3>Web Design</h3>
+                                <h3>Web Design</h3>
                             </div>
                             <div class="icons-container" style="border-bottom: 3px solid #f9bf3f;" data-aos="fade-up" data-aos-delay="500">
                                 <i class="fas fa-database" style="color: #f9bf3f;"></i> <br>
-								<h3>Front End Developer</h3>
+                                <h3>Front End Developer</h3>
                             </div>
                             <div class="icons-container" style="border-bottom: 3px solid #a84cb8;"data-aos="fade-up" data-aos-delay="750">
                                 <i class="fas fa-phone" style="color: #a84cb8;"></i> <br>
-								<h3>Responsive Website</h3>
+                                <h3>Responsive Website</h3>
                             </div>
                         </div>
+                        
+
+                        
                     </div>
                 </section>
                 <section id="services" style="height: 1000px;">
 
                 </section>
                 <section class="skill-issue" id="skills">
-                    <div data-aos="fade-right">
-                        <p>My Specialty</p><br>
-                        <h2 data-aos="fade-right" data-aos-delay="250" >My Skills</h2>
-
-                        <p class="myskill" data-aos="fade-right" data-aos-delay="500">
-                            I graduated as a multimedia designer in 2022, and during these years of study and work experience, <br>
-                            I have developed a diverse set of skills. I have gained knowledge in computer design software as <br>
-                            well as programming languages such as HTML, CSS, and JavaScript. Below, I have provided a self-assessment <br>
+                    <div>
+                        <div style="overflow: hidden;">
+                            <p data-aos="fade-right">My Specialty</p><br>
+                            <h2 data-aos="fade-right" data-aos-delay="250" >My Skills</h2> 
+                            <p class="myskill" data-aos="fade-right" data-aos-delay="500">
+                            I graduated as a multimedia designer in 2022, and during these years of study and work experience, 
+                            I have developed a diverse set of skills. I have gained knowledge in computer design software as 
+                            well as programming languages such as HTML, CSS, and JavaScript. Below, I have provided a self-assessment 
                             of my skills with ratings.
-                        </p>
+                            </p>
 
-                        <div class="skills_bar">
-                            <div class="skills-grid">
-                                <div class="bar">
-                                    <div class="info">
-                                        <span>Adobe Illustrator</span>
+                            <div class="skills_bar" data-aos="fade-right">
+                                <div class="skills-grid">
+                                    <div class="bar">
+                                        <div class="info">
+                                            <span>Adobe Illustrator</span>
+                                        </div>
+                                        <div class="progress_line ai"><span style="width: 90%;" data-percent="90%"></span></div>
                                     </div>
-                                    <div class="progress_line ai"><span style="width: 90%;" data-percent="90%"></span></div>
-                                </div>
-                                <div class="bar">
-                                    <div class="info">
-                                        <span>Adobe Photoshop</span>
+                                    <div class="bar">
+                                        <div class="info">
+                                            <span>Adobe Photoshop</span>
+                                        </div>
+                                        <div class="progress_line ps"><span style="width: 75%;" data-percent="75%"></span></div>
                                     </div>
-                                    <div class="progress_line ps"><span style="width: 75%;" data-percent="75%"></span></div>
-                                </div>
-                                <div class="bar">
-                                    <div class="info">
-                                        <span>Adobe XD</span>
+                                    <div class="bar">
+                                        <div class="info">
+                                            <span>Adobe XD</span>
+                                        </div>
+                                        <div class="progress_line xd"><span style="width: 85%;" data-percent="85%"></span></div>
                                     </div>
-                                    <div class="progress_line xd"><span style="width: 85%;" data-percent="85%"></span></div>
-                                </div>
-                                <div class="bar">
-                                    <div class="info">
-                                        <span>Figma</span>
+                                    <div class="bar">
+                                        <div class="info">
+                                            <span>Figma</span>
+                                        </div>
+                                        <div class="progress_line xd"><span style="width: 90%;" data-percent="90%"></span></div>
                                     </div>
-                                    <div class="progress_line xd"><span style="width: 90%;" data-percent="90%"></span></div>
-                                </div>
-                                <div class="bar">
-                                    <div class="info">
-                                        <span>HTML</span>
+                                    <div class="bar">
+                                        <div class="info">
+                                            <span>HTML</span>
+                                        </div>
+                                        <div class="progress_line html"><span style="width: 90%;" data-percent="90%"></span></div>
                                     </div>
-                                    <div class="progress_line html"><span style="width: 90%;" data-percent="90%"></span></div>
-                                </div>
-                                <div class="bar">
-                                    <div class="info">
-                                        <span>CSS</span>
+                                    <div class="bar">
+                                        <div class="info">
+                                            <span>CSS</span>
+                                        </div>
+                                        <div class="progress_line css"><span style="width: 80%;" data-percent="80%"></span></div>
                                     </div>
-                                    <div class="progress_line css"><span style="width: 80%;" data-percent="80%"></span></div>
                                 </div>
                             </div>
                         </div>
+
+                        
                     </div>
                 </section>
                 <section class="my-edu" id="education">
@@ -988,9 +1033,11 @@
                     </div>    
                 </section>
                 <section class="my-experience" id="experience">
-                    <div data-aos="fade-right">
-                        <p>Experience</p><br>
-                        <h2 data-aos="fade-right" data-aos-delay="250">My Working Experience</h2>
+                    <div>
+                        <div style="overflow: hidden;">
+                            <p data-aos="fade-right">Experience</p><br>
+                            <h2 data-aos="fade-right" data-aos-delay="250">My Working Experience</h2>
+                        </div>
 
                         <div class="timeline-container">
                             <div class="timeline">
@@ -1000,8 +1047,8 @@
                                     </div>
                                     <div class="timeline-body" data-aos="fade-left">
                                         <h4 class="timeline-title"><span class="badge">Elitetrax Marketing Sdn. Bhd.</span></h4>
-                                        <p class="timeline-subtitle">Apr 2024 - Present</p>
-                                        <p>UIUX Designer | Front-end Developer</p><br>
+                                        <p class="timeline-year">Apr 2024 - Present</p>
+                                        <p class="timeline-subtitle">UIUX Designer | Front-end Developer</p><br>
                                         <p class="timeline-responsible">
                                             My key responsibilities and benefits from my role at Harvey Norman's e-commerce team: <br><br>
                     
@@ -1023,8 +1070,8 @@
                                     </div>
                                     <div class="timeline-body" data-aos="fade-left" data-aos-ofset="500">
                                         <h4 class="timeline-title"><span class="badge">B Fitness Asia Sdn. Bhd.</span></h4>
-                                        <p class="timeline-subtitle">Jan 2023 - Apr 2024 · 1 yr 4 mos</p>
-                                        <p>UIUX & Graphics Designer | Marketing Executive</p><br>
+                                        <p class="timeline-year">Jan 2023 - Apr 2024 · 1 yr 4 mos</p>
+                                        <p class="timeline-subtitle">UIUX & Graphics Designer | Marketing Executive</p><br>
                                         <p class="timeline-responsible">
                                             <b>My Responsibilities includes</b>: <br>
                                             - Create websites from design to execution<br>
@@ -1042,8 +1089,8 @@
                                     </div>
                                     <div class="timeline-body" data-aos="fade-left">
                                         <h4 class="timeline-title"><span class="badge">Pusat Latihan Pandu Cemerlang Sdn Bhd (HQ)</span></h4>
-                                        <p class="timeline-subtitle">May 2022 - Dec 2022 · 8 mos</p>
-                                        <p>Administrative</p><br>
+                                        <p class="timeline-year">May 2022 - Dec 2022 · 8 mos</p>
+                                        <p class="timeline-subtitle">Administrative</p><br>
                                         <p class="timeline-responsible">
                                             <b>My Responsibilities includes</b>: <br>
                                             Photo and video shooting, create visuals, printings and manage some business working files. 
@@ -1254,4 +1301,5 @@
 
     
     </script>
-</html>
+</html>cript>
+"https://code.jquery.com/jquery-3.6.0.min.js"></script>
