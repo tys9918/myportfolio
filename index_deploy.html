@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="en">
+    <style>
+        @font-face {
+            font-family: 'icomoon';
+            src: url("../fonts/icomoon/icomoon.eot?srf3rx");
+            src: url("../fonts/icomoon/icomoon.eot?srf3rx#iefix") format("embedded-opentype"), url("../fonts/icomoon/icomoon.ttf?srf3rx") format("truetype"), url("../fonts/icomoon/icomoon.woff?srf3rx") format("woff"), url("../fonts/icomoon/icomoon.svg?srf3rx#icomoon") format("svg");
+            font-weight: normal;
+            font-style: normal; 
+        }
+
+        html{
+            scroll-behavior: smooth;
+        }
+
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Quicksand", Arial, sans-serif;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: "Playfair Display", Georgia, serif;
+            font-weight: 600;
+            margin: 0 0 30px 0; 
+        }
+
+        /* Container */
+        .container {
+            display: flex;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Sidebar Section */
+        .sidebar {
+            width: 30%;
+            height: 100vh; /* Make the sidebar fill the full viewport height */
+            position: fixed; /* Fix the sidebar in place */
+            left: 0;
+            top: 0;
+            background: #f4f4f4;
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .profile {
+            margin-bottom: 20px;
+        }
+
+        .profile-pic {
+            border-radius: 50%;
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .navigation ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .navigation li {
+            margin: 10px 0;
+        }
+
+        .navigation a {
+            text-decoration: none; /* Remove default underline */
+            color: #333; /* Text color */
+            position: relative; /* Position relative to enable ::after */
+            transition: color 0.3s ease; /* Optional: Smooth text color change */
+        }
+
+        .navigation a:active{
+            font-weight: 600;
+            color: #5693e2;
+        }
+
+        .navigation a::after {
+            content: ""; /* Creates a pseudo-element */
+            position: absolute;
+            left: 50%;
+            bottom: -20%;
+            width: 0; /* Initially hidden */
+            height: 1.5px; /* Thickness of the underline */
+            background-color: #5693e2; /* Same as the text color */
+            transition: width 0.3s ease; /* Smoothly animate the width */
+            transform: translateX(-50%); /* Adjust position by 50% of its width to center */
+        }
+
+        .navigation a:hover {
+            color: #555; /* Change text color on hover */
+        }
+
+        a:hover::after {
+            width: 100%; /* Expand the underline on hover */
+        }
+
+        .footer {
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* Main Content Section */
+        .main-content {
+            margin-left: 30%; /* Push the content to the right of the fixed sidebar */
+            width: 70%;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            background-color: rgb(235, 235, 235);
+        }
+        @media only screen and (max-width: 768px) {
+            .main-content{
+                margin: 0;
+                width: 100%;
+            }
+        }
+        
+        @media only screen and (max-width: 428px){
+            .main-content{
+                padding: 10px;
+            }
+        }
+        
+
+        .landing-banner {
+            max-width: 100%;
+            margin-top: 30px;
+            height: 100%;
+            display: flex;              /* Enable Flexbox */
+            flex-direction: column;     /* Stack items vertically */
+            justify-content: center;    /* Center items vertically */
+        }
+
+        .landing-banner h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            align-items: center;
+            align-items: flex;
+            line-height: 2rem ;
+        }
+
+        .landing-banner p{
+            font-size: 1.2rem;
+            padding: 20px 0;
+            color: rgb(117, 117, 117)
+        }
+
+        .landing-banner .resume-cta {
+            margin-bottom: 20px;
+            font-size: 1rem;
+            color: #555;
+            padding-top: 20px;
+        }
+
+        .resume-cta {
+            display: inline-block; /* Make sure the element behaves like a block for hover */
+            padding: 20px 20px; /* Add some padding */
+            background-color: #333; /* Background color */
+            color: white; /* Text color */
+            border-radius: 5px; /* Rounded corners */
+            text-align: center; /* Center the text */
+            cursor: pointer; /* Pointer cursor on hover */
+            transition: transform 0.3s ease; /* Smooth scaling */
+            transform-origin: center; /* Ensure scaling happens from the center */
+            width: 200px;
+            justify-content: center;
+        }
+
+        .resume-cta a{
+            color: white;
+            text-decoration: none;
+        }
+
+        .resume-cta:hover{
+            transform: scale(1.03);
+        }
+
+        .image img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .about-content{
+            display: flex;              /* Enable Flexbox */
+            flex-direction: column;     /* Stack items vertically */
+            justify-content: center;    /* Center items vertically */
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .about-me{
+            font-size: 1rem;
+            line-height: 2rem;
+            color: #8a8888;
+        }
+        .about-me a{
+            color: #5693e2;
+        }
+        .about-me span{
+            color: #5693e2;
+            text-decoration: underline;
+            font-weight: bold;
+        }
+
+        .about-grid {
+            display: grid;              /* Enable Grid layout */
+            grid-template-columns: repeat(4, 1fr); /* Create 2 equal-width columns */
+            /* grid-template-rows: repeat(2, 1fr);   */
+            gap: 10px;                  /* Add space between the grid items */
+            width: 100%;                /* Ensure it takes the full width */
+            margin: 0 auto;             /* Center the grid container */
+            padding: 20px 0;
+        }
+
+        .icons-container {
+            font-size: 30px;
+            height: auto;
+            padding-top: 20px;
+            text-align: center;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+        .icons-container i {
+            margin-right: 10px; /* Space between icon and text */
+        }
+
+        .icons-container i:hover {
+            color: #333; /* Change color on hover */
+            cursor: pointer; /* Optional: Change cursor style */
+        }
+
+        .icons-container h3 {
+            font-size: 20px;        /* Set font size for h3 */
+            color: #333;            /* Ensure text is visible */
+            margin-top: 10px;       /* Add space above the heading */
+            font-weight: 300;      /* Optional: Make the heading bold */
+        }
+
+        .skill-issue{
+            display: flex;              /* Enable Flexbox */
+            flex-direction: column;     /* Stack items vertically */
+            justify-content: center;    /* Center items vertically */
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        .myskill{
+            font-size: 1rem;
+            line-height: 2rem;
+            color: #8a8888;
+        }
+
+        .skills_bar {
+            max-width: 100%;
+            background: #fff;
+            padding: 2rem 2.5rem;
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .skills_bar .bar {
+            margin: 1.5rem 0;
+        }
+
+        /* .skills_bar .bar:first-child {
+            margin-top: 0px;
+        } */
+
+        .skills_bar .bar .info {
+            margin-bottom: 5px;
+        }
+
+        .skills_bar .bar .info span {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        /* Animation Keyframes */
+        @keyframes animate {
+            0% {
+                width: 0%;
+            }
+            100% {
+                max-width: 100%; /* Ensure it animates to the full length */
+            }
+        }
+
+        .progress_line {
+            height: 12px;
+            width: 100%;
+            background: #f0f0f0;
+            border-radius: 10px;
+            position: relative;
+            transform-origin: left;
+            box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05), 0px 1px rgba(255, 255, 255, 0.8);
+        }
+
+        .progress_line span {
+            height: 100%;
+            width: 0;
+            background: #8834db;
+            position: absolute;
+            border-radius: 10px;
+            animation: animate 1.5s cubic-bezier(0.6, 0, 0.4, 1) forwards;
+        }
+
+        /* Individual Skill Widths */
+        .progress_line.html span {
+            width: 90%; /* HTML Percentage */
+        }
+        .progress_line.css span {
+            width: 85%; /* CSS Percentage */
+        }
+        .progress_line.ai span {
+            width: 90%; /* CSS Percentage */
+        }
+        .progress_line.ps span {
+            width: 75%; /* CSS Percentage */
+        }
+        .progress_line.xd span {
+            width: 85%; /* CSS Percentage */
+        }
+
+        /* Arrow at the End of the Progress */
+        .bar .progress_line span::before {
+            position: absolute;
+            content: "";
+            height: 0;
+            width: 0;
+            border: 7px solid transparent;
+            border-bottom-width: 0;
+            border-right-width: 0;
+            border-top-color: #000; 
+            right: 0;
+            top: -10px;
+        }
+
+        /* Percentage Label */
+        .progress_line span::after {
+            position: absolute;
+            right: 0;
+            top: -35px;
+            background: #000;
+            color: #fff;
+            padding: 1px 8px;
+            border-radius: 3px;
+            font-size: 0.9rem;
+            content: attr(data-percent); /* Dynamically display percentage */
+        }
+
+        .skills-grid {
+            display: grid;              /* Enable Grid layout */
+            grid-template-columns: repeat(3, 1fr); /* Create 2 equal-width columns */
+            /* grid-template-rows: repeat(2, 1fr);   */
+            row-gap: 10px;                  /* Add space between the grid items */
+            column-gap: 20px;
+            width: 100%;                /* Ensure it takes the full width */
+        }
+
+        /* Keyframe Animation */
+        @keyframes scaleXAnimate {
+            100% {
+                transform: scaleX(1);
+            }
+        }
+
+        .my-edu{
+            display: flex;              /* Enable Flexbox */
+            flex-direction: column;     /* Stack items vertically */
+            justify-content: center;    /* Center items vertically */
+            height: 100%;
+            overflow: hidden;
+        }
+
+        
+        /* Accordion Container */
+        .mystudies {
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+        
+        /* Accordion Item */
+        .mystudies-item {
+            margin-bottom: 10px; /* Space between items */
+        }
+        
+        /* Accordion Header */
+        .mystudies-header {
+            width: 100%;
+            padding: 30px 20px;
+            text-align: left;
+            background-color: #f7f7f7;
+            border: 1px solid #e0e0e0;
+            /* border-radius: 8px; */
+            outline: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+            transition: background-color 0.3s ease;
+            font-family: "Quicksand", Arial, sans-serif;
+            font-weight: 400;
+            text-transform: uppercase;
+            position: relative;
+        }
+        
+        .mystudies-header:hover {
+            background-color: #e0e0e0;
+        }
+        
+        .mystudies-header::after{
+            content: "+";
+            position: absolute;
+            right: 20px;
+            font-size: 18px;
+            font-weight: 400;
+            transition: transform 0.3s ease;
+            font-family: "Quicksand", Arial, sans-serif;
+        }
+
+        .mystudies-item.active .mystudies-header::after{
+            content: "-";
+            font-family: "Quicksand", Arial, sans-serif;
+        }
+
+        /* Accordion Content */
+        .mystudies-content {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            background-color: #fff;
+            /* border: 1px solid #e0e0e0; */
+            /* border-radius: 8px; */
+            margin-top: 5px; /* Gap between header and content */
+            display: block;
+        }
+        
+        .mystudies-content p {
+            padding: 15px 0;
+            color: #555;
+        }
+        
+        /* Active State */
+        .mystudies-item.active .mystudies-header {
+            background-color: #2c98f0;
+            color: #fff;
+        }
+        
+        .mystudies-item.active .mystudies-content {
+            max-height: 200px; /* Adjust based on content */
+            padding: 10px 20px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .my-experience{
+            overflow: hidden;
+            height:250%;
+        }
+
+        /* Import Google Font */
+            @import url('https://fonts.googleapis.com/css?family=Niramit:300,300i,700');
+
+        /* Colors */
+        :root {
+            --primary: #1d8cf8;
+            --secondary: #4f537b;
+            --info: #11cdef;
+            --success: #00bf9a;
+            --warning: #ff8d72;
+            --danger: #fd5d93;
+            --body-bg: #1e1e2f;
+            --timeline-before-bg: #222a42;
+            --timeline-body-bg: #f2f3f7;
+            --timeline-body-round: 3px;
+            --timeline-body-shadow: 1px 3px 9px rgba(0, 0, 0, 0.1);
+        }
+
+        .timeline-container {
+            max-width: 800px;
+            margin: 50px auto;
+        }
+
+        p {
+            font-weight: 300;
+            line-height: 1.5;
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 4rem;
+            margin: 0 0 0 30px;
+            color: #000;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--timeline-body-bg);
+        }
+
+        .timeline-container {
+            position: relative;
+            margin-bottom: 2.5rem;
+        }
+
+        .timeline-icon {
+            position: absolute;
+            left: -88px;
+            top: 4px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            text-align: center;
+            font-size: 2rem;
+            background: var(--secondary);
+        }
+
+        .timeline-icon i {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .timeline-icon img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+
+        .timeline-body {
+            background: var(--timeline-body-bg);
+            border-radius: var(--timeline-body-round);
+            padding: 20px 20px 15px;
+            box-shadow: var(--timeline-body-shadow);
+            position: relative;
+        }
+
+        .timeline-body::before {
+            content: '';
+            background: inherit;
+            width: 20px;
+            height: 20px;
+            display: block;
+            position: absolute;
+            left: -10px;
+            transform: rotate(45deg);
+            border-radius: 0 0 0 2px;
+        }
+
+        .timeline-title {
+            margin-bottom: 1.4rem;
+        }
+
+        .badge {
+            padding: 4px 0px;
+            border-radius: 3px;
+            font-size: 18px;
+            font-weight: 300;
+        }
+
+        .timeline-subtitle {
+            font-weight: 300;
+            font-style: italic;
+            opacity: 0.4;
+            margin-top: 16px;
+            font-size: 11px;
+        }
+        .timeline-responsible{
+            font-size: 12px;
+            font-weight: 200;
+        }
+
+        .portfolio{
+            display: flex;              /* Enable Flexbox */
+            flex-direction: column;     /* Stack items vertically */
+            justify-content: center;    /* Center items vertically */
+        }
+
+
+        .wrapper {
+            max-width: 900px;
+            margin: auto;
+            font-family: "Quicksand", Arial, sans-serif;
+            line-height: 2em;
+            justify-content: center;
+        }
+
+        .tab-wrapper {
+            text-align: center;
+            display: block;
+            margin: auto;
+            max-width: 900px;
+        }
+
+        .tabs {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+        
+       
+
+        .tab-link {
+            margin: 0 1%;
+            list-style: none;
+            padding: 10px 10px;
+            color: #aaa;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all ease 0.5s;
+            border-bottom: solid 3px rgba(255, 255, 255, 0.0);
+        }
+        
+        @media only screen and (max-width: 428px){
+            .tab-link{
+                font-size: 0.8rem;
+                line-height: 0.85rem;
+                padding: 5px;
+            }    
+        }
+        
+
+        .tab-link:hover {
+            color: #999;
+            border-color: #999;
+        }
+
+        .tab-link.active {
+            color: #333;
+            border-color: #333;
+        }
+
+        .tab-link:nth-of-type(1).active {
+            color: #EE6534;
+            border-color: #EE6534;
+        }
+
+        .tab-link:nth-of-type(2).active {
+            color: #1790D2;
+            border-color: #1790D2;
+        }
+
+        .tab-link:nth-of-type(3).active {
+            color: #EEC63B;
+            border-color: #EEC63B;
+        }
+
+        .content-wrapper {
+            padding-top: 30px;
+        }
+
+        .tab-content {
+            display: none;
+            text-align: center;
+            color: #888;
+            font-weight: 300;
+            font-size: 15px;
+            opacity: 0;
+            transform: translateY(15px);
+            animation: fadeIn 0.5s ease 1 forwards;
+            max-width: 800px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            100% {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        .html-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            column-gap: 15px;
+            row-gap: 15px;
+        }
+
+        .html-grid img {
+            border-radius: 8px;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+            max-width: 300px;
+        }
+
+        @media only screen and (max-width: 768px) {
+            .html-grid {
+            grid-template-columns: repeat(2, 1fr);
+            }
+            .html-grid img {
+            max-width: 200px;
+        }
+        }
+
+        @media only screen and (max-width: 428px) {
+            .html-grid {
+            grid-template-columns: repeat(2, 1fr);
+            column-gap: 5px;
+            row-gap: 5px;
+            }
+            .html-grid img {
+            max-width: 180px;
+        }
+        } 
+
+        .contact{
+            height: 140%;
+            overflow: hidden;
+            display: flex;              /* Enable Flexbox */
+            flex-direction: column;     /* Stack items vertically */
+            justify-content: center;    /* Center items vertically */
+        }
+
+        .contact-container {
+            display: flex;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 800px;
+            gap: 20px;  
+        }
+
+        .contact-info {
+            width: 40%;
+        }
+
+        .info-box {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .info-box img {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+        }
+
+        .info-box a, .info-box p {
+            color: #007BFF;
+            text-decoration: none;
+            font-family: "Quicksand", Arial, sans-serif;
+        }
+
+        .contact-form {
+            width: 60%;
+        }
+
+        .contact-form form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #e6e1e1;
+        }
+
+        .contact-form button {
+            background: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .contact-form button:hover {
+            background: #0056b3;
+        }
+
+        @media only screen and (min-width: 769px) {
+            .mobile {
+                display: none;
+            }
+        }
+
+        @media only screen and (max-width: 768px) {
+            .desktop {
+                display: none;
+            }
+        }
+
+        @media only screen and (max-width: 428px) {
+            .desktop {
+                display: none;
+            }
+        }
+    </style>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Portfolio Layout</title>
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" type="text/javascript"></script>
+    </head>
+    <body>
+        <div class="container">
+            <!-- Left Section -->
+            <aside class="sidebar desktop">
+                <div class="profile">
+                    <img src="john-img/dp.jpeg" alt="Profile Picture" class="profile-pic">
+                    <h2>John Tan</h2>
+                    <p><b>Website Designer</b> and <b>Developer</b> <br>based in Kuala Lumpur, Malaysia</p>
+                </div>
+                <nav class="navigation">
+                    <ul>
+                        <li><a href="#main">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <!-- <li><a href="#services">Services</a></li> -->
+                        <li><a href="#skills">Skills</a></li>
+                        <li><a href="#education">Education</a></li>
+                        <li><a href="#experience">Experience</a></li>
+                        <li><a href="#portfolio">Portfolio</a></li>
+                        <!-- <li><a href="#">Blog</a></li> -->
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+                <footer class="footer">
+                    <p>© Copyright 2025 All rights reserved.</p>
+                </footer>
+            </aside>
+
+            <!-- Right Section -->
+            <section class="main-content">
+                <div class="landing-banner" id="main" data-aos="fade-up" data-aos-duration="3000">
+                    <h1>Hi!</h1>
+                    <h1>I'm John</h1>
+                    <p>A Web Designer x Front End Developer</p>
+                    <div class="resume-cta">
+                        <a href="john-img/Resume2025_compressed.pdf" target="_blank" rel="noopener noreferrer">Download Resume</a>
+                    </div>
+                </div>
+                <section class="about-content" id="about">
+                    <div data-aos="fade-right" data-aos-easing="linear" data-aos-duration="1000">
+                        <p>About Me</p><br>
+                        <h2>Who Am I?</h2>
+
+                        <p class="about-me">
+                            Hi I'm <b><a href="https://my.linkedin.com/in/tan-y-s">John</a></b>, 
+                            Skilled in crafting visually appealing, user-friendly websites with a strong focus on front-end
+                            development using <span>HTML, CSS, and JavaScript.</span>
+                            With a <span>solid foundation in UI/UX design</span> and a proven track record of delivering responsive, intuitive,
+                            and engaging web experiences, I bring a blend of creativity and technical expertise to every project.
+                            My experience includes designing and developing websites that prioritize user-centric design
+                            principles, seamless functionality, and clean, maintainable code. I thrive both as an independent
+                            contributor and as a collaborative team member, and I am passionate about creating exceptional
+                            digital experiences that align with business goals and user needs
+                        </p>
+
+                        <div class="about-grid">
+                            <div class="icons-container" style="border-bottom: 3px solid #2c98f0;" data-aos="fade-up">
+                                <i class="fas fa-lightbulb" style="color: #2c98f0;"></i> <br>
+								<h3>Graphic Design</h3>
+                            </div>
+                            <div class="icons-container" style="border-bottom: 3px solid #ec5453;" data-aos="fade-up" data-aos-delay="250">
+                                <i class="fas fa-globe" style="color: #ec5453;"></i> <br>
+								<h3>Web Design</h3>
+                            </div>
+                            <div class="icons-container" style="border-bottom: 3px solid #f9bf3f;" data-aos="fade-up" data-aos-delay="500">
+                                <i class="fas fa-database" style="color: #f9bf3f;"></i> <br>
+								<h3>Front End Developer</h3>
+                            </div>
+                            <div class="icons-container" style="border-bottom: 3px solid #a84cb8;"data-aos="fade-up" data-aos-delay="750">
+                                <i class="fas fa-phone" style="color: #a84cb8;"></i> <br>
+								<h3>Responsive Website</h3>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="services" style="height: 1000px;">
+
+                </section>
+                <section class="skill-issue" id="skills">
+                    <div data-aos="fade-right">
+                        <p>My Specialty</p><br>
+                        <h2 data-aos="fade-right" data-aos-delay="250" >My Skills</h2>
+
+                        <p class="myskill" data-aos="fade-right" data-aos-delay="500">
+                            I graduated as a multimedia designer in 2022, and during these years of study and work experience, <br>
+                            I have developed a diverse set of skills. I have gained knowledge in computer design software as <br>
+                            well as programming languages such as HTML, CSS, and JavaScript. Below, I have provided a self-assessment <br>
+                            of my skills with ratings.
+                        </p>
+
+                        <div class="skills_bar">
+                            <div class="skills-grid">
+                                <div class="bar">
+                                    <div class="info">
+                                        <span>Adobe Illustrator</span>
+                                    </div>
+                                    <div class="progress_line ai"><span style="width: 90%;" data-percent="90%"></span></div>
+                                </div>
+                                <div class="bar">
+                                    <div class="info">
+                                        <span>Adobe Photoshop</span>
+                                    </div>
+                                    <div class="progress_line ps"><span style="width: 75%;" data-percent="75%"></span></div>
+                                </div>
+                                <div class="bar">
+                                    <div class="info">
+                                        <span>Adobe XD</span>
+                                    </div>
+                                    <div class="progress_line xd"><span style="width: 85%;" data-percent="85%"></span></div>
+                                </div>
+                                <div class="bar">
+                                    <div class="info">
+                                        <span>Figma</span>
+                                    </div>
+                                    <div class="progress_line xd"><span style="width: 90%;" data-percent="90%"></span></div>
+                                </div>
+                                <div class="bar">
+                                    <div class="info">
+                                        <span>HTML</span>
+                                    </div>
+                                    <div class="progress_line html"><span style="width: 90%;" data-percent="90%"></span></div>
+                                </div>
+                                <div class="bar">
+                                    <div class="info">
+                                        <span>CSS</span>
+                                    </div>
+                                    <div class="progress_line css"><span style="width: 80%;" data-percent="80%"></span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="my-edu" id="education">
+                    <div data-aos="fade-right">
+                        <p>Studies</p><br>
+                        <h2 data-aos="fade-right" data-aos-delay="250" >My Educations</h2>
+
+                        <div class="mystudies">
+                            <div class="mystudies-item">
+                            <button class="mystudies-header">Advanced Diploma in Multimedia Design</button>
+                            <div class="mystudies-content">
+                                <p>Persued study at <b>The One Academy</b>
+                                        <br>Major in UIUX Design and Website Programming
+                                        <br>2019-06 to 2022-05  
+                                </p>
+                            </div>
+                            </div>
+                            <div class="mystudies-item">
+                            <button class="mystudies-header">Diploma in Information Technology</button>
+                            <div class="mystudies-content">
+                                <p>Persued study at <b>TARumt</b>
+                                    <br>2017-05 to 2019-05
+                                </p>  
+                            </div>
+                            </div>
+                            <!-- <div class="mystudies-item">
+                            <button class="mystudies-header">Section 3</button>
+                            <div class="mystudies-content">
+                                <p>This is the content for section 3. It can be expanded or collapsed.</p>
+                            </div>
+                            </div> -->
+                        </div>
+                    </div>    
+                </section>
+                <section class="my-experience" id="experience">
+                    <div data-aos="fade-right">
+                        <p>Experience</p><br>
+                        <h2 data-aos="fade-right" data-aos-delay="250">My Working Experience</h2>
+
+                        <div class="timeline-container">
+                            <div class="timeline">
+                                <div class="timeline-container">
+                                    <div class="timeline-icon" data-aos="fade-up">
+                                        <i class="far fa-grin-wink"></i>
+                                    </div>
+                                    <div class="timeline-body" data-aos="fade-left">
+                                        <h4 class="timeline-title"><span class="badge">Elitetrax Marketing Sdn. Bhd.</span></h4>
+                                        <p class="timeline-subtitle">Apr 2024 - Present</p>
+                                        <p>UIUX Designer | Front-end Developer</p><br>
+                                        <p class="timeline-responsible">
+                                            My key responsibilities and benefits from my role at Harvey Norman's e-commerce team: <br><br>
+                    
+                                            <b>Responsibilities</b>:<br>
+                                            - Developing and designing websites from conception to execution, ensuring optimal user experience and interface design using HTML, CSS, and JavaScript.<br>
+                                            - Crafting engaging web banners to complement each landing page for all campaigns.<br>
+                                            - Successfully revamping the brand page, leading to a significantly improved user experience.<br>
+                                            - Implementing new functions to elevate the user's online shopping journey.<br>
+                                            <br>
+                                            <b>Benefits</b>:<br>
+                                            - Strengthened my expertise in front-end development (HTML, CSS, and JavaScript), enhancing my ability to create dynamic and engaging web experiences.<br>
+                                            - Empowered to take independent ownership of upcoming and ongoing tasks, fostering a sense of accountability and leadership.<br>
+                                            - Adapted seamlessly to the fast-paced working environment, honing my agility and efficiency in meeting tight deadlines and evolving project requirements.</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-container">
+                                    <div class="timeline-icon" data-aos="fade-up">
+                                        <i class="far fa-grin-hearts"></i>
+                                    </div>
+                                    <div class="timeline-body" data-aos="fade-left" data-aos-ofset="500">
+                                        <h4 class="timeline-title"><span class="badge">B Fitness Asia Sdn. Bhd.</span></h4>
+                                        <p class="timeline-subtitle">Jan 2023 - Apr 2024 · 1 yr 4 mos</p>
+                                        <p>UIUX & Graphics Designer | Marketing Executive</p><br>
+                                        <p class="timeline-responsible">
+                                            <b>My Responsibilities includes</b>: <br>
+                                            - Create websites from design to execution<br>
+                                            - Successfully led the redesign of the company website, increasing user engagement<br>
+                                            - Create social media posts (Instagram story, post and carousel)<br>
+                                            - Involve shooting for promotional shots<br>
+                                            - Creating presentation visuals<br>
+                                            - Create props for Halloween events<br>
+                                            - Organize events at Glow House Grand launch</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-container">
+                                    <div class="timeline-icon" data-aos="fade-up">
+                                        <i class="far fa-grin-tears"></i>
+                                    </div>
+                                    <div class="timeline-body" data-aos="fade-left">
+                                        <h4 class="timeline-title"><span class="badge">Pusat Latihan Pandu Cemerlang Sdn Bhd (HQ)</span></h4>
+                                        <p class="timeline-subtitle">May 2022 - Dec 2022 · 8 mos</p>
+                                        <p>Administrative</p><br>
+                                        <p class="timeline-responsible">
+                                            <b>My Responsibilities includes</b>: <br>
+                                            Photo and video shooting, create visuals, printings and manage some business working files. 
+                                            I did customer service as well. Manage social media and customers reply.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- portfolio -->
+                <section class="portfolio" id="portfolio">
+                    <div  style="overflow: hidden;">
+                        <p data-aos="fade-right">Portfolio</p><br>
+                        <h2 data-aos="fade-right" data-aos-delay="250">My Works</h2>
+
+                        <div class="wrapper" data-aos="fade-down">
+                            <div class="tab-wrapper">
+                                <ul class="tabs">
+                                        <li class="tab-link active" data-tab="1">Web Pages</li>
+                                        <li class="tab-link" data-tab="2">KV Design (Graphic)</li>
+                                        <li class="tab-link" data-tab="3">Social Media Design</li>
+                                </ul>
+                            </div>
+                        
+                            <div class="content-wrapper">
+                                <div id="tab-1" class="tab-content active">
+                                    <div class="html-grid">
+                                        <a href="https://www.harveynorman.com.my/promotions/oppo-reno13-5g-series-launch.html" target="_blank"><img src="john-img/reno13-preorder.png"></a>
+                                        <a href="https://www.harveynorman.com.my/promotions/intel-week-2024.html" target="_blank"><img src="john-img/intel-sale.png"></a>
+                                        <a href="https://www.harveynorman.com.my/promotions/dyson-airwrap-id-multi-styler-and-dryer-straightwavy-launch.html" target="_blank"><img src="john-img/dysonairwrap-id.png"></a>
+                                        <a href="https://www.harveynorman.com.sg/promotions/everything-is-negotiable-2025.html" target="_blank"><img src="john-img/Everything-is-nego.png"></a>
+                                        <a href="https://www.harveynorman.com.my/happenings-harvey-norman-mid-valley-kl-flagship-store.html" target="_blank"><img src="john-img/MVKL-Flagship-Store-Desktop.png"></a>
+                                        <a href="https://www.harveynorman.com.my/promotions/half-yearly-clearance.html" target="_blank"><img src="john-img/half-yearly-clearance.png"></a>
+                                        <a href="https://johnwixe.wixsite.com/portfolio/babel-home" target="_blank"><img src="john-img/babel.png"></a>
+                                        <a href="https://johnwixe.wixsite.com/portfolio/bossfit" target="_blank"><img src="john-img/bossfit.png"></a>
+                                        <a href="https://euphoria.zone/" target="_blank"><img src="john-img/euphoria.png"></a>
+                                    </div>    
+                                </div>
+                                <div id="tab-2" class="tab-content">
+                                    <div class="html-grid">
+                                        <img src="john-img/Samsung-MC-Season-of-Gifting-Promo_Catalogue_600x350.png">
+                                        <img src="john-img/samsung-monitor-Promo_Catalogue_600x350.png">
+                                        <img src="john-img/samsung-3d-Promo_Catalogue_600x350.png">
+                                        <img src="john-img/Sireh-Residence-Promo_Catalogue_600x350.png">
+                                        <img src="john-img/Fatherday.png">
+                                        <img src="john-img/Best-Memory-Foam-Promo_Catalogue_600x350.png">
+                                        <img src="john-img/dreamy-nights-Promo_Catalogue_600x350.png">
+                                        <img src="john-img/dreamy-nights-Promo_Catalogue_600x350v5.png">
+                                        <img src="john-img/Napure-BOTM-Promo_Cataloguev2.png">
+                                    </div>
+                                </div>
+                                <div id="tab-3"class="tab-content">
+                                    <div class="html-grid">
+                                        <img src="john-img/social/WereClosing-01_compressed.png">
+                                        <img src="john-img/social/WereClosing-02_compressed.png">
+                                        <img src="john-img/social/AreYouANownAgain-05_compressed.png">
+                                        <img src="john-img/social/MerdekaBoss-03_compressed.png">
+                                        <img src="john-img/social/MothersDay-04_compressed.png">
+                                        <img src="john-img/social/RayaV2-5_compressed.png">
+                                        <img src="john-img/social/CNYGrain_compressed.png">
+                                        <img src="john-img/social/CNYZumba-03_compressed.png">
+                                        <img src="john-img/social/Comm.Run.Pavillion-02_compressed.png">
+                                        <img src="john-img/social/ZumbaSHine_compressed.png">
+                                        <img src="john-img/social/ChristmasCarnival-01_compressed.png">
+                                        <img src="john-img/social/BossCarnival-01_compressed.png"> 
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </section>
+                <!-- contact me  -->
+                <section class="contact" id="contact">
+                    <div data-aos="fade-right">
+                        <p>Get In Touch</p><br>
+                        <h2 data-aos="fade-right" data-aos-delay="250">Contact Me</h2>
+                        
+                        <div class="contact-container">
+                            <div class="contact-info">
+                                <div class="info-box">
+                                    <svg id='Email_Document_24' width='24' height='24' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><rect width='24' height='24' stroke='none' fill='#000000' opacity='0'/>
+                                        <g transform="matrix(0.71 0 0 0.71 12 12)" >
+                                        <path style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" translate(-17.5, -16)" d="M 7 2 C 5.895 2 5 2.895 5 4 L 5 26 C 5 27.105 5.895 28 7 28 L 12 28 C 12 29.093063 12.906937 30 14 30 L 28 30 C 29.093063 30 30 29.093063 30 28 L 30 19.251953 C 30.00165295392406 19.218770572363002 30.00165295392406 19.185526427636997 30 19.152344 L 30 18 C 30 16.906937 29.093063 16 28 16 L 25 16 L 25 9.5 C 25 9.235 24.895031 8.9809688 24.707031 8.7929688 L 18.207031 2.2929688 C 18.019031 2.1049688 17.765 2 17.5 2 L 7 2 z M 17 3.9042969 L 23.095703 10 L 18 10 C 17.448 10 17 9.552 17 9 L 17 3.9042969 z M 14 18 L 28 18 L 28 18.685547 L 22.744141 22.441406 C 21.697713 23.188425 20.302287 23.188425 19.255859 22.441406 L 14 18.685547 L 14 18 z M 28 21.144531 L 28 28 L 14 28 L 14 21.146484 L 18.09375 24.068359 C 19.829322 25.307341 22.170678 25.307341 23.90625 24.068359 L 28 21.144531 z" stroke-linecap="round" />
+                                        </g>
+                                    </svg>
+                                    <a href="mailto:yisheng.johntan@gmail.com" style="padding-left: 10px;">yisheng.johntan@gmail.com</a>
+                                </div>
+                                <div class="info-box">
+                                    <svg id='My_Location_24' width='24' height='24' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><rect width='24' height='24' stroke='none' fill='#000000' opacity='0'/>
+                                        <g transform="matrix(0.63 0 0 0.63 12 12)" >
+                                        <g style="" >
+                                        <g transform="matrix(1 0 0 1 0.5 0.5)" >
+                                        <path style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 0.3;" transform=" translate(-16.5, -16.5)" d="M 29.649 13.664 L 29.571 13.656 C 28.454 8.615 24.298 4.619 19.141 3.63 L 19.104 3.311 C 18.964 2.1029999999999998 17.983999999999998 1.137 16.773 1.0139999999999998 C 16.684 1.004 16.596 1 16.508 1 C 15.162999999999998 1 14.046 2.01 13.91 3.348 L 13.873 3.7169999999999996 C 13.081999999999999 3.8949999999999996 12.324 4.146999999999999 11.607 4.468 C 10.298 5.011 9.248999999999999 5.79 8.233999999999998 6.5440000000000005 C 8.038999999999998 6.689 7.8439999999999985 6.8340000000000005 7.6469999999999985 6.977 L 7.603 7.009 L 7.562 7.043 C 5.557 8.679 4.205 10.995000000000001 3.668 13.676 L 3.311 13.717 C 2.1029999999999998 13.857000000000001 1.137 14.837 1.0139999999999998 16.048000000000002 C 0.8689999999999998 17.481 1.916 18.765 3.3489999999999998 18.911 L 3.658 18.942 C 4.156 21.555 5.378 23.901 7.182 25.668 C 9.038 27.573999999999998 11.350000000000001 28.829 13.920000000000002 29.329 L 13.963000000000001 29.701 C 14.102 31.024 15.194 32 16.557 32 C 17.913 32 19.031 30.989 19.157 29.649 L 19.193 29.292 C 24.016000000000002 28.295 28.659 24.654000000000003 29.682000000000002 18.861000000000004 L 29.700000000000003 18.859000000000005 C 31.009000000000004 18.721000000000004 32.006 17.599000000000004 31.999000000000002 16.250000000000007 C 31.993 14.901 30.982 13.789 29.649 13.664 z" stroke-linecap="round" />
+                                        </g>
+                                        <g transform="matrix(1 0 0 1 -0.5 -0.5)" >
+                                        <path style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;" transform=" translate(-15.5, -15.5)" d="M 28.649 12.664 L 28.571 12.656 C 27.454 7.615 23.298 3.619 18.141 2.63 L 18.104 2.311 C 17.964 1.103 16.983999999999998 0.137 15.773 0.01399999999999979 C 15.684 0.004 15.596 0 15.508 0 C 14.162999999999998 0 13.046 1.01 12.91 2.348 L 12.873 2.7169999999999996 C 12.081999999999999 2.8949999999999996 11.324 3.147 10.607 3.4679999999999995 C 9.298 4.011 8.249 4.791 7.234 5.544 C 7.039 5.688999999999999 6.844 5.834 6.647 5.976999999999999 L 6.603 6.009 L 6.562 6.043 C 4.557 7.679 3.205 9.995000000000001 2.668 12.676 L 2.311 12.717 C 1.103 12.857000000000001 0.137 13.837 0.01399999999999979 15.048 C -0.1310000000000002 16.481 0.9159999999999998 17.765 2.3489999999999998 17.911 L 2.658 17.942 C 3.1559999999999997 20.555 4.378 22.901 6.182 24.668 C 8.038 26.573999999999998 10.350000000000001 27.829 12.920000000000002 28.329 L 12.963000000000001 28.701 C 13.102 30.024 14.194 31 15.557 31 C 16.913 31 18.031 29.989 18.157 28.649 L 18.193 28.292 C 23.016000000000002 27.295 27.659 23.654000000000003 28.682000000000002 17.861000000000004 L 28.700000000000003 17.859000000000005 C 30.009000000000004 17.721000000000004 31.006000000000004 16.599000000000004 30.999000000000002 15.250000000000005 C 30.993 13.901 29.982 12.789 28.649 12.664 z" stroke-linecap="round" />
+                                        </g>
+                                        <g transform="matrix(1 0 0 1 -0.32 -0.4)" >
+                                        <path style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" translate(-15.68, -15.6)" d="M 19.036 15.6 C 18.873 20.119 12.426000000000002 19.945999999999998 12.330000000000002 15.6 C 12.426 11.253 18.873 11.082 19.036 15.6 L 19.036 15.6 z M 16.036 15.6 C 16.071 14.376999999999999 14.188 14.224 14.126000000000001 15.6 C 14.188 16.977 16.071 16.823 16.036 15.6 L 16.036 15.6 z" stroke-linecap="round" />
+                                        </g>
+                                        <g transform="matrix(1 0 0 1 -0.62 -0.4)" >
+                                        <path style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" translate(-15.38, -15.6)" d="M 28.571 14.629 L 27.025000000000002 14.466999999999999 C 26.516000000000002 8.808999999999997 21.664 4.6179999999999986 16.325000000000003 4.257999999999999 L 16.11 2.463 C 16.07 2.132 15.806999999999999 1.86 15.460999999999999 1.823 C 15.059999999999999 1.781 14.7 2.072 14.657999999999998 2.473 L 14.466999999999997 4.295 C 13.356999999999998 4.41 12.246999999999996 4.677 11.168999999999997 5.161 C 9.811 5.716 8.698 6.636 7.505 7.488 C 5.354 9.217 4.2219999999999995 11.782 4.007 14.461 L 2.1819999999999995 14.679 C 1.3359999999999994 14.77 1.3389999999999995 16.048000000000002 2.1919999999999993 16.131 L 4.004 16.32 C 4.21 19.016000000000002 5.313 21.662 7.244 23.534 C 9.325 25.657999999999998 11.896 26.717 14.489 26.906 L 14.708 28.737 C 14.747 29.067999999999998 15.011000000000001 29.34 15.357 29.377 C 15.758 29.419 16.118 29.128 16.16 28.727 L 16.353 26.894000000000002 C 21.733 26.432000000000002 26.722 22.343000000000004 27.072000000000003 16.261000000000003 L 28.582000000000004 16.081000000000003 C 29.427 15.99 29.424 14.712 28.571 14.629 z M 16.657 23.998 L 16.884 21.832 C 17.023 19.619 13.712 19.647000000000002 13.884 21.854 L 14.148 24.057 C 12.366 23.840999999999998 10.611 23.08 9.138 21.625999999999998 C 7.728 20.301999999999996 6.856 18.49 6.561 16.586999999999996 L 9.119 16.853999999999996 C 11.33 16.991999999999997 11.303 13.682999999999996 9.097 13.853999999999996 L 6.51 14.161999999999995 C 6.6 13.401999999999996 6.771 12.649999999999995 7.066 11.935999999999996 C 8.017 9.783999999999995 9.468 7.549999999999996 11.841999999999999 6.796999999999996 C 12.636999999999999 6.461999999999996 13.451999999999998 6.274999999999996 14.265999999999998 6.1969999999999965 L 13.932999999999998 9.365999999999996 C 13.793999999999999 11.577999999999996 17.104999999999997 11.550999999999997 16.933 9.343999999999996 L 16.568 6.292999999999996 C 20.414 6.970999999999996 23.75 10.155999999999995 24.138 14.163999999999996 L 21.643 13.902999999999997 C 19.432000000000002 13.764999999999997 19.459 17.073999999999998 21.665 16.903 L 24.061 16.616999999999997 C 23.471 20.625 20.265 23.395 16.657 23.998 z" stroke-linecap="round" />
+                                        </g>
+                                        </g>
+                                        </g>
+                                    </svg>
+                                    <p style="padding-left: 10px;">Kuala Lumpur, MY.</p>
+                                </div>
+                                <div class="info-box">
+                                    <svg id='Phone_Contact_24' width='24' height='24' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><rect width='24' height='24' stroke='none' fill='#000000' opacity='0'/>
+                                        <g transform="matrix(0.91 0 0 0.91 12 12)" >
+                                        <path style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" translate(-12, -12)" d="M 21 5 L 13.618 5 L 13.171000000000001 4.106 C 12.831 3.424 12.146 3 11.382 3 L 3 3 C 1.897 3 1 3.897 1 5 L 1 19 C 1 20.103 1.897 21 3 21 L 5 21 L 5 19 L 7 19 L 7 21 L 17 21 L 17 19 L 19 19 L 19 21 L 21 21 C 22.103 21 23 20.103 23 19 L 23 7 C 23 5.897 22.103 5 21 5 z M 16.962 15.772 C 16.754 16.355 15.735 16.917 15.277 16.958 C 14.818999999999999 17 14.389999999999999 17.165 12.282 16.334 C 9.745000000000001 15.334 8.143 12.733 8.019 12.567 C 7.894 12.4 7 11.214 7 9.986 C 7 8.758000000000001 7.645 8.154 7.874 7.905000000000001 C 8.103 7.655000000000001 8.373 7.593000000000001 8.54 7.593000000000001 C 8.706 7.593000000000001 8.873 7.593000000000001 9.017999999999999 7.599000000000001 C 9.196 7.606 9.393 7.615 9.58 8.03 C 9.802 8.524 10.287 9.758 10.349 9.883 C 10.411 10.008 10.453 10.154 10.370000000000001 10.319999999999999 C 10.287000000000003 10.485999999999997 10.245000000000001 10.589999999999998 10.121 10.735999999999999 C 9.996 10.882 9.859 11.060999999999998 9.747 11.172999999999998 C 9.622 11.296999999999999 9.491999999999999 11.432999999999998 9.637 11.681999999999999 C 9.783000000000001 11.931999999999999 10.283000000000001 12.748999999999999 11.025 13.409999999999998 C 11.979000000000001 14.259999999999998 12.782 14.522999999999998 13.032 14.649 C 13.282 14.774 13.427 14.752999999999998 13.573 14.585999999999999 C 13.719000000000001 14.419999999999998 14.197000000000001 13.857999999999999 14.363 13.607999999999999 C 14.529 13.357999999999999 14.696 13.399999999999999 14.924999999999999 13.482999999999999 C 15.153999999999998 13.565999999999999 16.381 14.169999999999998 16.63 14.294999999999998 C 16.88 14.419999999999998 17.046 14.481999999999998 17.108 14.585999999999999 C 17.17 14.689 17.17 15.189 16.962 15.772 z" stroke-linecap="round" />
+                                        </g>
+                                    </svg>
+                                    <a href="tel:+1234567890" style="padding-left: 10px;">+6013-537 6769</a>
+                                </div>
+                            </div>
+                    
+                            <!-- <div class="contact-form">
+                                <form action="submit.php" method="POST">
+                                    <input type="text" name="name" placeholder="Name" required>
+                                    <input type="email" name="email" placeholder="Email" required>
+                                    <input type="text" name="subject" placeholder="Subject">
+                                    <textarea name="message" placeholder="Message" required></textarea>
+                                    <button type="submit">SEND MESSAGE</button>
+                                </form>
+                            </div> -->
+                        </div>
+                    </div>
+                </section>
+            </section>
+            
+        </div>
+    </body>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        AOS.init({
+        offset: 300,
+        delay: 0,
+        duration: 1000,
+        easing: 'ease',
+        mirror: false
+    });
+    </script>
+    <script>
+        // Highlight active navigation link on scroll
+        document.addEventListener("scroll", () => {
+            const sections = document.querySelectorAll("section");
+            const navLinks = document.querySelectorAll(".navigation a");
+
+            let currentSection = "";
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= sectionTop - 50) {
+                    currentSection = section.getAttribute("id");
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove("active");
+                if (link.getAttribute("href").includes(currentSection)) {
+                    link.classList.add("active");
+                }
+            });
+        });
+
+
+        // Reflect scrolling in navigation
+        var navActive = function(section) {
+
+            var $el = $('#navbar > ul');
+            $el.find('li').removeClass('active');
+            $el.each(function(){
+                $(this).find('a[data-nav-section="'+section+'"]').closest('li').addClass('active');
+            });
+
+        };
+
+        document.addEventListener('DOMContentLoaded', function () {
+        const accordionItems = document.querySelectorAll('.mystudies-item');
+        
+        accordionItems.forEach(item => {
+            const header = item.querySelector('.mystudies-header');
+            header.addEventListener('click', () => {
+            // Toggle active class
+            item.classList.toggle('active');
+        
+            // Close other accordion items
+            accordionItems.forEach(otherItem => {
+                if (otherItem !== item && otherItem.classList.contains('active')) {
+                otherItem.classList.remove('active');
+                }
+            });
+            });
+        });
+    });
+
+    $('.tab-link').click( function() {
+        var tabID = $(this).attr('data-tab');
+        $(this).addClass('active').siblings().removeClass('active');
+        $('#tab-'+tabID).addClass('active').siblings().removeClass('active');
+    });
+
+
+    
+    </script>
+</html>
